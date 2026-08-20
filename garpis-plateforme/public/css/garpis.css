@@ -1,0 +1,409 @@
+/* =====================================================================
+   GARPIS Formation — feuille de style unique.
+   Aucune etape de compilation : le fichier est servi tel quel.
+   Palette tiree des documents officiels GARPIS : vert de l'attestation,
+   or de la bordure, terre de laterite pour les impayes.
+   ===================================================================== */
+
+:root {
+  --encre:      #14201A;
+  --encre-doux: #52645A;
+  --vert:       #0E4A2B;
+  --vert-vif:   #1B8552;
+  --vert-pale:  #E7F0E9;
+  --or:         #C08A2E;
+  --or-pale:    #FBF2DF;
+  --laterite:   #A63D2F;
+  --laterite-pale: #FBEBE8;
+  --papier:     #F4F6F2;
+  --carte:      #FFFFFF;
+  --trait:      #E2E7E0;
+
+  --rayon:   10px;
+  --rayon-s: 6px;
+  --ombre:   0 1px 2px rgba(20,32,26,.05), 0 4px 14px rgba(20,32,26,.05);
+  --rail:    236px;
+
+  --police-titre: "Fraunces", Georgia, serif;
+  --police:       "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --police-code:  ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--police);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--encre);
+  background: var(--papier);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--vert-vif); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+:focus-visible {
+  outline: 2px solid var(--vert-vif);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+/* ---------- Charpente ------------------------------------------------ */
+
+.app { min-height: 100vh; }
+
+.rail {
+  display: none;
+  position: fixed; inset: 0 auto 0 0;
+  width: var(--rail);
+  background: var(--vert);
+  color: #EAF2EC;
+  padding: 22px 14px 16px;
+  flex-direction: column;
+  z-index: 30;
+}
+
+.rail__marque { display: flex; align-items: center; gap: 10px; padding: 0 8px 20px; }
+.rail__marque img { width: 34px; height: 34px; object-fit: contain; }
+.rail__marque b { font-family: var(--police-titre); font-size: 17px; font-weight: 600; letter-spacing: -.2px; }
+.rail__marque span { display: block; font-size: 10.5px; opacity: .7; letter-spacing: .4px; text-transform: uppercase; }
+
+.rail__lien {
+  display: flex; align-items: center; gap: 11px;
+  padding: 9px 10px; margin-bottom: 2px;
+  border-radius: var(--rayon-s);
+  color: #D6E5DA; font-size: 14.5px; font-weight: 500;
+  transition: background .14s ease, color .14s ease;
+}
+.rail__lien:hover { background: rgba(255,255,255,.09); color: #fff; text-decoration: none; }
+.rail__lien--actif { background: rgba(255,255,255,.15); color: #fff; }
+.rail__lien svg { width: 18px; height: 18px; flex: none; opacity: .85; }
+
+.rail__section { margin-top: 18px; padding: 0 10px 6px; font-size: 10.5px;
+  letter-spacing: 1px; text-transform: uppercase; opacity: .55; }
+
+.rail__pied { margin-top: auto; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.13); }
+
+.jeton {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px;
+  border-radius: var(--rayon-s); background: rgba(255,255,255,.07);
+}
+.jeton__rond {
+  width: 30px; height: 30px; flex: none; border-radius: 50%;
+  background: var(--or); color: #241A05;
+  display: grid; place-items: center; font-size: 12px; font-weight: 700;
+}
+.jeton__nom { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.jeton__role { font-size: 11px; opacity: .7; }
+
+.zone { padding: 16px 16px 96px; }
+
+@media (min-width: 900px) {
+  .rail { display: flex; }
+  .zone { margin-left: var(--rail); padding: 26px 32px 40px; }
+  .barre-onglets { display: none; }
+}
+
+.contenu { max-width: 1120px; margin: 0 auto; }
+
+/* ---------- Barre d'onglets mobile ----------------------------------- */
+
+.barre-onglets {
+  position: fixed; inset: auto 0 0 0; z-index: 40;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  background: var(--carte);
+  border-top: 1px solid var(--trait);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.barre-onglets a {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 9px 2px 8px; font-size: 10.5px; font-weight: 500;
+  color: var(--encre-doux);
+}
+.barre-onglets a:hover { text-decoration: none; }
+.barre-onglets a.actif { color: var(--vert); }
+.barre-onglets svg { width: 21px; height: 21px; }
+
+/* ---------- Titres --------------------------------------------------- */
+
+.entete { margin-bottom: 20px; }
+.entete__sur {
+  font-size: 11px; font-weight: 600; letter-spacing: 1.3px;
+  text-transform: uppercase; color: var(--encre-doux); margin-bottom: 5px;
+}
+h1 {
+  font-family: var(--police-titre); font-size: 27px; font-weight: 600;
+  letter-spacing: -.4px; margin: 0 0 4px; line-height: 1.15;
+}
+h2 { font-family: var(--police-titre); font-size: 19px; font-weight: 600; margin: 0 0 12px; }
+h3 { font-size: 14px; font-weight: 700; margin: 0 0 8px; letter-spacing: -.1px; }
+.entete p { margin: 0; color: var(--encre-doux); font-size: 14px; }
+
+/* ---------- Cartes --------------------------------------------------- */
+
+.carte {
+  background: var(--carte); border: 1px solid var(--trait);
+  border-radius: var(--rayon); box-shadow: var(--ombre);
+  padding: 18px; margin-bottom: 16px;
+}
+.carte--serree { padding: 0; overflow: hidden; }
+.carte__titre {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 18px; border-bottom: 1px solid var(--trait);
+}
+.carte__titre h2, .carte__titre h3 { margin: 0; }
+
+.grille { display: grid; gap: 12px; }
+.grille--2 { grid-template-columns: 1fr; }
+.grille--3 { grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 700px) {
+  .grille--2 { grid-template-columns: repeat(2, 1fr); }
+  .grille--3 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ---------- Chiffres du tableau de bord ------------------------------ */
+
+.stat {
+  background: var(--carte); border: 1px solid var(--trait);
+  border-radius: var(--rayon); padding: 15px 16px;
+}
+.stat__label {
+  font-size: 11px; font-weight: 600; letter-spacing: .8px;
+  text-transform: uppercase; color: var(--encre-doux); margin-bottom: 7px;
+}
+.stat__valeur {
+  font-family: var(--police-titre); font-size: 26px; font-weight: 600;
+  line-height: 1; letter-spacing: -.6px; font-variant-numeric: tabular-nums;
+}
+.stat__unite { font-family: var(--police); font-size: 13px; font-weight: 500; color: var(--encre-doux); margin-left: 3px; }
+.stat__note { font-size: 12px; color: var(--encre-doux); margin-top: 6px; }
+.stat--alerte { border-color: #EED6D1; background: var(--laterite-pale); }
+.stat--alerte .stat__valeur { color: var(--laterite); }
+
+/* ---------- Pastilles d'etat ----------------------------------------- */
+
+.pastille {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 9px; border-radius: 999px;
+  font-size: 12px; font-weight: 600; white-space: nowrap;
+}
+.pastille--solde { background: var(--or-pale); color: #7A5510; border: 1px solid #EBD8AC; }
+.pastille--du    { background: var(--laterite-pale); color: var(--laterite); border: 1px solid #EED6D1; }
+.pastille--neutre{ background: var(--vert-pale); color: var(--vert); border: 1px solid #CFE2D5; }
+.pastille--grise { background: #EFF1EE; color: var(--encre-doux); border: 1px solid var(--trait); }
+.pastille__nb { font-variant-numeric: tabular-nums; }
+
+/* Le code de session, le numero de recu : de vrais identifiants, en chasse fixe. */
+.code {
+  font-family: var(--police-code); font-size: 12.5px;
+  letter-spacing: .3px; color: var(--encre-doux);
+}
+
+/* ---------- Le verrou : signature de l'interface ---------------------
+   La regle centrale de GARPIS rendue visible. Le cadenas ne s'ouvre que
+   lorsque la pastille de solde passe a l'or. Il n'y a pas d'autre chemin. */
+
+.verrou {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border-radius: var(--rayon-s);
+  font-size: 13px; font-weight: 600; border: 1px solid;
+}
+.verrou--ferme {
+  background: #F1F3F0; color: #8A968E; border-color: var(--trait); cursor: not-allowed;
+}
+.verrou--ouvert {
+  background: var(--or); color: #2A1E06; border-color: #A9761F;
+}
+.verrou--ouvert:hover { background: #CD9738; text-decoration: none; }
+.verrou svg { width: 14px; height: 14px; }
+
+/* ---------- Boutons -------------------------------------------------- */
+
+.bouton {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  padding: 10px 17px; border-radius: var(--rayon-s); border: 1px solid transparent;
+  font-family: var(--police); font-size: 14.5px; font-weight: 600;
+  cursor: pointer; transition: background .14s ease, border-color .14s ease;
+}
+.bouton:hover { text-decoration: none; }
+.bouton--plein { background: var(--vert); color: #fff; }
+.bouton--plein:hover { background: #0B3D23; }
+.bouton--vif { background: var(--vert-vif); color: #fff; }
+.bouton--vif:hover { background: #177346; }
+.bouton--vide { background: var(--carte); color: var(--encre); border-color: var(--trait); }
+.bouton--vide:hover { border-color: #C8D2C9; background: #FAFBF9; }
+.bouton--danger { background: var(--carte); color: var(--laterite); border-color: #EED6D1; }
+.bouton--danger:hover { background: var(--laterite-pale); }
+.bouton--large { width: 100%; }
+.bouton svg { width: 16px; height: 16px; }
+.bouton:disabled { opacity: .5; cursor: not-allowed; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 9px; }
+
+/* ---------- Formulaires ---------------------------------------------- */
+
+.champ { margin-bottom: 15px; }
+.champ label {
+  display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;
+}
+.champ__aide { font-size: 12.5px; color: var(--encre-doux); margin: 4px 0 0; }
+
+input[type=text], input[type=email], input[type=password], input[type=tel],
+input[type=number], input[type=date], input[type=search], select, textarea {
+  width: 100%; padding: 10px 12px;
+  border: 1px solid var(--trait); border-radius: var(--rayon-s);
+  background: var(--carte); font-family: var(--police); font-size: 15px;
+  color: var(--encre); transition: border-color .14s ease, box-shadow .14s ease;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none; border-color: var(--vert-vif);
+  box-shadow: 0 0 0 3px rgba(27,133,82,.14);
+}
+input[type=number] { font-variant-numeric: tabular-nums; }
+
+.saisie-montant {
+  font-family: var(--police-titre) !important;
+  font-size: 30px !important; font-weight: 600;
+  text-align: center; letter-spacing: -.5px; padding: 14px !important;
+}
+
+.erreur-champ { color: var(--laterite); font-size: 12.5px; margin-top: 4px; font-weight: 500; }
+
+/* ---------- Messages ------------------------------------------------- */
+
+.message {
+  display: flex; gap: 10px; padding: 12px 15px; margin-bottom: 16px;
+  border-radius: var(--rayon); font-size: 14px; border: 1px solid;
+}
+.message--succes { background: var(--vert-pale); border-color: #CFE2D5; color: #0C4426; }
+.message--erreur { background: var(--laterite-pale); border-color: #EED6D1; color: #7E2C21; }
+.message--alerte { background: var(--or-pale); border-color: #EBD8AC; color: #6B4A0E; }
+.message svg { width: 18px; height: 18px; flex: none; margin-top: 1px; }
+
+/* ---------- Tableaux et listes --------------------------------------- */
+
+.tableau { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tableau th {
+  text-align: left; padding: 10px 14px;
+  font-size: 11px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase;
+  color: var(--encre-doux); border-bottom: 1px solid var(--trait); white-space: nowrap;
+}
+.tableau td { padding: 11px 14px; border-bottom: 1px solid #F0F2EF; vertical-align: middle; }
+.tableau tr:last-child td { border-bottom: none; }
+.tableau tbody tr:hover { background: #FAFBF9; }
+.tableau .nombre { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+
+.enveloppe-tableau { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.ligne-perso { display: flex; align-items: center; gap: 11px; }
+.ligne-perso__rond {
+  width: 34px; height: 34px; flex: none; border-radius: 50%;
+  background: var(--vert-pale); color: var(--vert);
+  display: grid; place-items: center; font-size: 12.5px; font-weight: 700;
+}
+.ligne-perso__nom { font-weight: 600; line-height: 1.25; }
+.ligne-perso__meta { font-size: 12.5px; color: var(--encre-doux); }
+
+.vide { text-align: center; padding: 44px 20px; color: var(--encre-doux); }
+.vide h3 { font-family: var(--police-titre); font-size: 17px; color: var(--encre); margin-bottom: 6px; }
+.vide p { margin: 0 0 16px; font-size: 14px; }
+
+/* ---------- Assistant ------------------------------------------------ */
+
+.assistant { background: var(--carte); border: 1px solid var(--trait);
+  border-radius: var(--rayon); box-shadow: var(--ombre); overflow: hidden; margin-bottom: 20px; }
+.assistant__haut { padding: 18px 18px 14px; }
+.assistant__titre { font-family: var(--police-titre); font-size: 20px; font-weight: 600; margin: 0 0 3px; }
+.assistant__sous { font-size: 13.5px; color: var(--encre-doux); margin: 0 0 14px; }
+.assistant__saisie { display: flex; gap: 8px; }
+.assistant__saisie input { flex: 1; }
+.assistant__exemples { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 11px; }
+.puce {
+  padding: 5px 11px; border-radius: 999px; border: 1px solid var(--trait);
+  background: var(--papier); font-size: 12.5px; color: var(--encre-doux);
+  cursor: pointer; font-family: var(--police);
+}
+.puce:hover { border-color: var(--vert-vif); color: var(--vert); }
+.assistant__reponse {
+  padding: 15px 18px; border-top: 1px solid var(--trait);
+  background: var(--vert-pale); font-size: 14.5px; white-space: pre-wrap;
+}
+.assistant__outils { font-size: 11.5px; color: var(--encre-doux); margin-top: 9px; font-family: var(--police-code); }
+
+/* ---------- Ruban de caisse (mobile) --------------------------------- */
+
+.ruban {
+  position: fixed; left: 0; right: 0; bottom: 58px; z-index: 35;
+  background: var(--vert); color: #fff;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 16px; font-size: 13px;
+}
+.ruban b { font-variant-numeric: tabular-nums; font-size: 15px; }
+.ruban a { color: #CFE7D8; font-size: 12.5px; }
+@media (min-width: 900px) { .ruban { display: none; } }
+
+/* ---------- Pagination ----------------------------------------------- */
+
+.pagination { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 16px; justify-content: center; }
+.pagination a, .pagination span {
+  padding: 7px 12px; border-radius: var(--rayon-s); border: 1px solid var(--trait);
+  background: var(--carte); font-size: 13.5px; color: var(--encre);
+}
+.pagination .active span { background: var(--vert); color: #fff; border-color: var(--vert); }
+
+/* ---------- Connexion ------------------------------------------------ */
+
+.ecran-connexion {
+  min-height: 100vh; display: grid; place-items: center; padding: 24px;
+  background:
+    radial-gradient(1100px 460px at 50% -14%, rgba(27,133,82,.13), transparent 62%),
+    var(--papier);
+}
+.boite-connexion { width: 100%; max-width: 396px; }
+.boite-connexion__marque { text-align: center; margin-bottom: 24px; }
+.boite-connexion__marque img { width: 62px; margin-bottom: 10px; }
+.boite-connexion__marque h1 { font-size: 25px; margin-bottom: 3px; }
+.boite-connexion__marque p { color: var(--encre-doux); font-size: 13.5px; margin: 0; }
+.boite-connexion .carte { padding: 24px; }
+
+/* ---------- Page publique de verification ---------------------------- */
+
+.verif { min-height: 100vh; padding: 22px 16px 40px; background: var(--papier); }
+.verif__carte {
+  max-width: 520px; margin: 22px auto;
+  background: var(--carte); border-radius: 14px;
+  box-shadow: 0 2px 20px rgba(20,32,26,.09); overflow: hidden;
+}
+.verif__bandeau { padding: 26px 20px; text-align: center; color: #fff; }
+.verif__bandeau--ok { background: var(--vert); }
+.verif__bandeau--ko { background: var(--laterite); }
+.verif__bandeau svg { width: 42px; height: 42px; margin-bottom: 8px; }
+.verif__bandeau h1 { font-size: 20px; margin: 0 0 5px; color: #fff; }
+.verif__bandeau p { margin: 0; font-size: 13.5px; opacity: .92; }
+.verif__logo { display: block; width: 62px; margin: 20px auto 2px; }
+.verif dl { margin: 0; padding: 8px 22px 20px; }
+.verif dt {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .7px;
+  color: var(--encre-doux); margin-top: 15px; font-weight: 600;
+}
+.verif dd { margin: 3px 0 0; font-size: 16px; font-weight: 600; }
+.verif__pied {
+  padding: 15px 22px 22px; border-top: 1px solid var(--trait);
+  font-size: 12px; color: var(--encre-doux); line-height: 1.6;
+}
+
+/* ---------- Impression ----------------------------------------------- */
+
+@media print {
+  .rail, .barre-onglets, .ruban, .actions, .bouton { display: none !important; }
+  .zone { margin: 0; padding: 0; }
+  .carte { box-shadow: none; border-color: #ccc; }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "GARPIS Formation",
+  "short_name": "GARPIS",
+  "description": "Gestion des apprenants, de la caisse et des attestations",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F4F6F2",
+  "theme_color": "#0E4A2B",
+  "lang": "fr",
+  "icons": [
+    { "src": "/assets/logo_garpis.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
