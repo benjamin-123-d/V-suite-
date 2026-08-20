@@ -1,0 +1,4 @@
+# Plateforme interne GARPIS : rien ne doit etre indexe.
+# La page publique de verification est en noindex cote HTML.
+User-agent: *
+Disallow: /
